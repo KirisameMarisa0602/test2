@@ -1,0 +1,45 @@
+# Qt/Qt Creator
+*.pro.user
+*.pro.user.*
+*.qbs.user
+*.qbs.user.*
+*.qmlproject.user
+*.creator
+*.creator.user
+*.files
+*.includes
+*.config
+*.autosave
+.qmake.stash
+.qmake.cache
+
+# Qt generated
+moc_*.cpp
+ui_*.h
+qrc_*.cpp
+
+# Build output
+build/
+build-*/
+bin/
+out/
+dist/
+debug/
+release/
+
+# C/C++
+*.o
+*.obj
+*.a
+*.so
+*.dll
+*.dylib
+*.exe
+*.pdb
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
