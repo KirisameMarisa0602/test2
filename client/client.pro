@@ -6,53 +6,24 @@ DEFINES += QT_DEPRECATED_WARNINGS
 TEMPLATE = app
 TARGET = client
 
-INCLUDEPATH += Headers
-INCLUDEPATH += Headers/comm
-INCLUDEPATH += Sources
-INCLUDEPATH += Sources/comm
-INCLUDEPATH += Forms
-INCLUDEPATH += Resources
+# Use CloudMeeting UI files
+UI_BASE = $$PWD/ui_cloudmeeting
 
-HEADERS += \
-    Headers/client_factory.h \
-    Headers/client_expert.h \
-    Headers/login.h \
-    Headers/regist.h \
-    Headers/protocol.h \
-    Headers/comm/commwidget.h \
-    Headers/comm/mainwindow.h \
-    Headers/comm/annot.h \
-    Headers/comm/annotcanvas.h \
-    Headers/comm/audiochat.h \
-    Headers/comm/clientconn.h \
-    Headers/comm/screenshare.h \
-    Headers/comm/udpmedia.h \
-    Headers/comm/volume_popup.h
+INCLUDEPATH += $$UI_BASE/Headers
+INCLUDEPATH += $$UI_BASE/Headers/comm
+INCLUDEPATH += $$UI_BASE/Sources
+INCLUDEPATH += $$UI_BASE/Sources/comm
+INCLUDEPATH += $$UI_BASE/Forms
+INCLUDEPATH += $$UI_BASE/Resources
 
-SOURCES += \
-    Sources/client_factory.cpp \
-    Sources/client_expert.cpp \
-    Sources/login.cpp \
-    Sources/regist.cpp \
-    Sources/protocol.cpp \
-    Sources/main.cpp \
-    Sources/comm/commwidget.cpp \
-    Sources/comm/mainwindow.cpp \
-    Sources/comm/annot.cpp \
-    Sources/comm/annotcanvas.cpp \
-    Sources/comm/audiochat.cpp \
-    Sources/comm/clientconn.cpp \
-    Sources/comm/screenshare.cpp \
-    Sources/comm/udpmedia.cpp \
-    Sources/comm/volume_popup.cpp
+# Automatically include all files from ui_cloudmeeting
+HEADERS += $$files($$UI_BASE/Headers/*.h, true)
+SOURCES += $$files($$UI_BASE/Sources/*.cpp, true)
+FORMS += $$files($$UI_BASE/Forms/*.ui, true)
+RESOURCES += $$files($$UI_BASE/Resources/*.qrc, true)
 
-FORMS += \
-    Forms/client_factory.ui \
-    Forms/client_expert.ui \
-    Forms/login.ui \
-    Forms/regist.ui
-
-RESOURCES += Resources/resources.qrc
+# Link to SDK
+include(./sdk_link.pri)
 
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
