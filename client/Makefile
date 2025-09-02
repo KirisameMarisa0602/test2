@@ -17,7 +17,7 @@ CXX           = g++
 DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_SQL_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -O2 -std=gnu++11 -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -IHeaders -IHeaders/comm -ISources -ISources/comm -IForms -IResources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
+INCPATH       = -I. -I../sdk/include -Iui_cloudmeeting/Headers -Iui_cloudmeeting/Headers/comm -Iui_cloudmeeting/Sources -Iui_cloudmeeting/Sources/comm -Iui_cloudmeeting/Forms -Iui_cloudmeeting/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -Iui_cloudmeeting -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
 QMAKE         = /usr/lib/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = client1.0.0
 DISTDIR = /home/runner/work/test2/test2/client/.tmp/client1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
-LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Multimedia.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Network.so /usr/lib/x86_64-linux-gnu/libQt5Sql.so /usr/lib/x86_64-linux-gnu/libQt5Core.so -lGL -lpthread   
+LIBS          = $(SUBLIBS) -L/home/runner/work/test2/test2/client/../sdk -lcmsdk /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Multimedia.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Network.so /usr/lib/x86_64-linux-gnu/libQt5Sql.so /usr/lib/x86_64-linux-gnu/libQt5Core.so -lGL -lpthread   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -52,58 +52,64 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = Sources/client_factory.cpp \
-		Sources/client_expert.cpp \
-		Sources/login.cpp \
-		Sources/regist.cpp \
-		Sources/protocol.cpp \
-		Sources/main.cpp \
-		Sources/comm/commwidget.cpp \
-		Sources/comm/mainwindow.cpp \
-		Sources/comm/annot.cpp \
-		Sources/comm/annotcanvas.cpp \
-		Sources/comm/audiochat.cpp \
-		Sources/comm/clientconn.cpp \
-		Sources/comm/screenshare.cpp \
-		Sources/comm/udpmedia.cpp \
-		Sources/comm/volume_popup.cpp qrc_resources.cpp \
-		moc_client_factory.cpp \
+SOURCES       = ui_cloudmeeting/Sources/client_expert.cpp \
+		ui_cloudmeeting/Sources/client_factory.cpp \
+		ui_cloudmeeting/Sources/login.cpp \
+		ui_cloudmeeting/Sources/main.cpp \
+		ui_cloudmeeting/Sources/net_util.cpp \
+		ui_cloudmeeting/Sources/protocol.cpp \
+		ui_cloudmeeting/Sources/regist.cpp \
+		ui_cloudmeeting/Sources/register_dialog.cpp \
+		ui_cloudmeeting/Sources/comm/annot.cpp \
+		ui_cloudmeeting/Sources/comm/annotcanvas.cpp \
+		ui_cloudmeeting/Sources/comm/audiochat.cpp \
+		ui_cloudmeeting/Sources/comm/clientconn.cpp \
+		ui_cloudmeeting/Sources/comm/commwidget.cpp \
+		ui_cloudmeeting/Sources/comm/mainwindow.cpp \
+		ui_cloudmeeting/Sources/comm/screenshare.cpp \
+		ui_cloudmeeting/Sources/comm/udpmedia.cpp \
+		ui_cloudmeeting/Sources/comm/volume_popup.cpp qrc_resources.cpp \
 		moc_client_expert.cpp \
+		moc_client_factory.cpp \
 		moc_login.cpp \
 		moc_regist.cpp \
-		moc_commwidget.cpp \
-		moc_mainwindow.cpp \
+		moc_register_dialog.cpp \
 		moc_annotcanvas.cpp \
 		moc_audiochat.cpp \
 		moc_clientconn.cpp \
+		moc_commwidget.cpp \
+		moc_mainwindow.cpp \
 		moc_screenshare.cpp \
 		moc_udpmedia.cpp \
 		moc_volume_popup.cpp
-OBJECTS       = client_factory.o \
-		client_expert.o \
+OBJECTS       = client_expert.o \
+		client_factory.o \
 		login.o \
-		regist.o \
-		protocol.o \
 		main.o \
-		commwidget.o \
-		mainwindow.o \
+		net_util.o \
+		protocol.o \
+		regist.o \
+		register_dialog.o \
 		annot.o \
 		annotcanvas.o \
 		audiochat.o \
 		clientconn.o \
+		commwidget.o \
+		mainwindow.o \
 		screenshare.o \
 		udpmedia.o \
 		volume_popup.o \
 		qrc_resources.o \
-		moc_client_factory.o \
 		moc_client_expert.o \
+		moc_client_factory.o \
 		moc_login.o \
 		moc_regist.o \
-		moc_commwidget.o \
-		moc_mainwindow.o \
+		moc_register_dialog.o \
 		moc_annotcanvas.o \
 		moc_audiochat.o \
 		moc_clientconn.o \
+		moc_commwidget.o \
+		moc_mainwindow.o \
 		moc_screenshare.o \
 		moc_udpmedia.o \
 		moc_volume_popup.o
@@ -166,9 +172,11 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
+		sdk_link.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resolve_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_post.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/warn_on.prf \
@@ -185,34 +193,41 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		client.pro Headers/client_factory.h \
-		Headers/client_expert.h \
-		Headers/login.h \
-		Headers/regist.h \
-		Headers/protocol.h \
-		Headers/comm/commwidget.h \
-		Headers/comm/mainwindow.h \
-		Headers/comm/annot.h \
-		Headers/comm/annotcanvas.h \
-		Headers/comm/audiochat.h \
-		Headers/comm/clientconn.h \
-		Headers/comm/screenshare.h \
-		Headers/comm/udpmedia.h \
-		Headers/comm/volume_popup.h Sources/client_factory.cpp \
-		Sources/client_expert.cpp \
-		Sources/login.cpp \
-		Sources/regist.cpp \
-		Sources/protocol.cpp \
-		Sources/main.cpp \
-		Sources/comm/commwidget.cpp \
-		Sources/comm/mainwindow.cpp \
-		Sources/comm/annot.cpp \
-		Sources/comm/annotcanvas.cpp \
-		Sources/comm/audiochat.cpp \
-		Sources/comm/clientconn.cpp \
-		Sources/comm/screenshare.cpp \
-		Sources/comm/udpmedia.cpp \
-		Sources/comm/volume_popup.cpp
+		client.pro ui_cloudmeeting/Headers/client_expert.h \
+		ui_cloudmeeting/Headers/client_factory.h \
+		ui_cloudmeeting/Headers/login.h \
+		ui_cloudmeeting/Headers/net_util.h \
+		ui_cloudmeeting/Headers/protocol.h \
+		ui_cloudmeeting/Headers/regist.h \
+		ui_cloudmeeting/Headers/register_dialog.h \
+		ui_cloudmeeting/Headers/shared_types.h \
+		ui_cloudmeeting/Headers/theme.h \
+		ui_cloudmeeting/Headers/user_session.h \
+		ui_cloudmeeting/Headers/comm/annot.h \
+		ui_cloudmeeting/Headers/comm/annotcanvas.h \
+		ui_cloudmeeting/Headers/comm/audiochat.h \
+		ui_cloudmeeting/Headers/comm/clientconn.h \
+		ui_cloudmeeting/Headers/comm/commwidget.h \
+		ui_cloudmeeting/Headers/comm/mainwindow.h \
+		ui_cloudmeeting/Headers/comm/screenshare.h \
+		ui_cloudmeeting/Headers/comm/udpmedia.h \
+		ui_cloudmeeting/Headers/comm/volume_popup.h ui_cloudmeeting/Sources/client_expert.cpp \
+		ui_cloudmeeting/Sources/client_factory.cpp \
+		ui_cloudmeeting/Sources/login.cpp \
+		ui_cloudmeeting/Sources/main.cpp \
+		ui_cloudmeeting/Sources/net_util.cpp \
+		ui_cloudmeeting/Sources/protocol.cpp \
+		ui_cloudmeeting/Sources/regist.cpp \
+		ui_cloudmeeting/Sources/register_dialog.cpp \
+		ui_cloudmeeting/Sources/comm/annot.cpp \
+		ui_cloudmeeting/Sources/comm/annotcanvas.cpp \
+		ui_cloudmeeting/Sources/comm/audiochat.cpp \
+		ui_cloudmeeting/Sources/comm/clientconn.cpp \
+		ui_cloudmeeting/Sources/comm/commwidget.cpp \
+		ui_cloudmeeting/Sources/comm/mainwindow.cpp \
+		ui_cloudmeeting/Sources/comm/screenshare.cpp \
+		ui_cloudmeeting/Sources/comm/udpmedia.cpp \
+		ui_cloudmeeting/Sources/comm/volume_popup.cpp
 QMAKE_TARGET  = client
 DESTDIR       = 
 TARGET        = client
@@ -221,7 +236,7 @@ TARGET        = client
 first: all
 ####### Build rules
 
-client: ui_client_factory.h ui_client_expert.h ui_login.h ui_regist.h $(OBJECTS)  
+client: /home/runner/work/test2/test2/client/../sdk/libcmsdk.a ui_cloudmeeting/ui_client_expert.h ui_cloudmeeting/ui_client_factory.h ui_cloudmeeting/ui_login.h ui_cloudmeeting/ui_regist.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: client.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -283,9 +298,11 @@ Makefile: client.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf 
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf \
+		sdk_link.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resolve_config.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_post.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/warn_on.prf \
@@ -303,7 +320,7 @@ Makefile: client.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf 
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		client.pro \
-		Resources/resources.qrc
+		ui_cloudmeeting/Resources/resources.qrc
 	$(QMAKE) -o Makefile client.pro
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf:
@@ -364,9 +381,11 @@ Makefile: client.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf 
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qt_config.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exclusive_builds.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/toolchain.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_pre.prf:
+sdk_link.pri:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/resolve_config.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/default_post.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/warn_on.prf:
@@ -384,7 +403,7 @@ Makefile: client.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf 
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf:
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf:
 client.pro:
-Resources/resources.qrc:
+ui_cloudmeeting/Resources/resources.qrc:
 qmake: FORCE
 	@$(QMAKE) -o Makefile client.pro
 
@@ -399,11 +418,11 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents Resources/resources.qrc $(DISTDIR)/
+	$(COPY_FILE) --parents ui_cloudmeeting/Resources/resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents Headers/client_factory.h Headers/client_expert.h Headers/login.h Headers/regist.h Headers/protocol.h Headers/comm/commwidget.h Headers/comm/mainwindow.h Headers/comm/annot.h Headers/comm/annotcanvas.h Headers/comm/audiochat.h Headers/comm/clientconn.h Headers/comm/screenshare.h Headers/comm/udpmedia.h Headers/comm/volume_popup.h $(DISTDIR)/
-	$(COPY_FILE) --parents Sources/client_factory.cpp Sources/client_expert.cpp Sources/login.cpp Sources/regist.cpp Sources/protocol.cpp Sources/main.cpp Sources/comm/commwidget.cpp Sources/comm/mainwindow.cpp Sources/comm/annot.cpp Sources/comm/annotcanvas.cpp Sources/comm/audiochat.cpp Sources/comm/clientconn.cpp Sources/comm/screenshare.cpp Sources/comm/udpmedia.cpp Sources/comm/volume_popup.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents Forms/client_factory.ui Forms/client_expert.ui Forms/login.ui Forms/regist.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ui_cloudmeeting/Headers/client_expert.h ui_cloudmeeting/Headers/client_factory.h ui_cloudmeeting/Headers/login.h ui_cloudmeeting/Headers/net_util.h ui_cloudmeeting/Headers/protocol.h ui_cloudmeeting/Headers/regist.h ui_cloudmeeting/Headers/register_dialog.h ui_cloudmeeting/Headers/shared_types.h ui_cloudmeeting/Headers/theme.h ui_cloudmeeting/Headers/user_session.h ui_cloudmeeting/Headers/comm/annot.h ui_cloudmeeting/Headers/comm/annotcanvas.h ui_cloudmeeting/Headers/comm/audiochat.h ui_cloudmeeting/Headers/comm/clientconn.h ui_cloudmeeting/Headers/comm/commwidget.h ui_cloudmeeting/Headers/comm/mainwindow.h ui_cloudmeeting/Headers/comm/screenshare.h ui_cloudmeeting/Headers/comm/udpmedia.h ui_cloudmeeting/Headers/comm/volume_popup.h $(DISTDIR)/
+	$(COPY_FILE) --parents ui_cloudmeeting/Sources/client_expert.cpp ui_cloudmeeting/Sources/client_factory.cpp ui_cloudmeeting/Sources/login.cpp ui_cloudmeeting/Sources/main.cpp ui_cloudmeeting/Sources/net_util.cpp ui_cloudmeeting/Sources/protocol.cpp ui_cloudmeeting/Sources/regist.cpp ui_cloudmeeting/Sources/register_dialog.cpp ui_cloudmeeting/Sources/comm/annot.cpp ui_cloudmeeting/Sources/comm/annotcanvas.cpp ui_cloudmeeting/Sources/comm/audiochat.cpp ui_cloudmeeting/Sources/comm/clientconn.cpp ui_cloudmeeting/Sources/comm/commwidget.cpp ui_cloudmeeting/Sources/comm/mainwindow.cpp ui_cloudmeeting/Sources/comm/screenshare.cpp ui_cloudmeeting/Sources/comm/udpmedia.cpp ui_cloudmeeting/Sources/comm/volume_popup.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ui_cloudmeeting/Forms/client_expert.ui ui_cloudmeeting/Forms/client_factory.ui ui_cloudmeeting/Forms/login.ui ui_cloudmeeting/Forms/regist.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -430,11 +449,11 @@ benchmark: first
 compiler_rcc_make_all: qrc_resources.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
-qrc_resources.cpp: Resources/resources.qrc \
+qrc_resources.cpp: ui_cloudmeeting/Resources/resources.qrc \
 		/usr/lib/qt5/bin/rcc \
-		Resources/qss/theme.qss \
-		Resources/icons/chevron-down-white.svg
-	/usr/lib/qt5/bin/rcc -name resources Resources/resources.qrc -o qrc_resources.cpp
+		ui_cloudmeeting/Resources/qss/theme.qss \
+		ui_cloudmeeting/Resources/icons/chevron-down-white.svg
+	/usr/lib/qt5/bin/rcc -name resources ui_cloudmeeting/Resources/resources.qrc -o qrc_resources.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
@@ -442,123 +461,117 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -std=gnu++11 -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_client_factory.cpp moc_client_expert.cpp moc_login.cpp moc_regist.cpp moc_commwidget.cpp moc_mainwindow.cpp moc_annotcanvas.cpp moc_audiochat.cpp moc_clientconn.cpp moc_screenshare.cpp moc_udpmedia.cpp moc_volume_popup.cpp
+compiler_moc_header_make_all: moc_client_expert.cpp moc_client_factory.cpp moc_login.cpp moc_regist.cpp moc_register_dialog.cpp moc_annotcanvas.cpp moc_audiochat.cpp moc_clientconn.cpp moc_commwidget.cpp moc_mainwindow.cpp moc_screenshare.cpp moc_udpmedia.cpp moc_volume_popup.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_client_factory.cpp moc_client_expert.cpp moc_login.cpp moc_regist.cpp moc_commwidget.cpp moc_mainwindow.cpp moc_annotcanvas.cpp moc_audiochat.cpp moc_clientconn.cpp moc_screenshare.cpp moc_udpmedia.cpp moc_volume_popup.cpp
-moc_client_factory.cpp: Headers/client_factory.h \
-		Headers/comm/commwidget.h \
-		Headers/comm/mainwindow.h \
-		Headers/comm/annot.h \
-		Headers/comm/clientconn.h \
-		Headers/protocol.h \
-		Headers/comm/audiochat.h \
-		Headers/comm/screenshare.h \
-		Headers/client_expert.h \
+	-$(DEL_FILE) moc_client_expert.cpp moc_client_factory.cpp moc_login.cpp moc_regist.cpp moc_register_dialog.cpp moc_annotcanvas.cpp moc_audiochat.cpp moc_clientconn.cpp moc_commwidget.cpp moc_mainwindow.cpp moc_screenshare.cpp moc_udpmedia.cpp moc_volume_popup.cpp
+moc_client_expert.cpp: ui_cloudmeeting/Headers/client_expert.h \
+		ui_cloudmeeting/Headers/comm/commwidget.h \
+		ui_cloudmeeting/Headers/comm/mainwindow.h \
+		ui_cloudmeeting/Headers/comm/clientconn.h \
+		ui_cloudmeeting/Headers/protocol.h \
+		ui_cloudmeeting/Headers/shared_types.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/client/Headers -I/home/runner/work/test2/test2/client/Headers/comm -I/home/runner/work/test2/test2/client/Sources -I/home/runner/work/test2/test2/client/Sources/comm -I/home/runner/work/test2/test2/client/Forms -I/home/runner/work/test2/test2/client/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include Headers/client_factory.h -o moc_client_factory.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/sdk/include -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Forms -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ui_cloudmeeting/Headers/client_expert.h -o moc_client_expert.cpp
 
-moc_client_expert.cpp: Headers/client_expert.h \
-		Headers/comm/commwidget.h \
-		Headers/comm/mainwindow.h \
-		Headers/comm/annot.h \
-		Headers/comm/clientconn.h \
-		Headers/protocol.h \
-		Headers/comm/audiochat.h \
-		Headers/comm/screenshare.h \
+moc_client_factory.cpp: ui_cloudmeeting/Headers/client_factory.h \
+		ui_cloudmeeting/Headers/comm/commwidget.h \
+		ui_cloudmeeting/Headers/comm/mainwindow.h \
+		ui_cloudmeeting/Headers/comm/clientconn.h \
+		ui_cloudmeeting/Headers/protocol.h \
+		ui_cloudmeeting/Headers/shared_types.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/client/Headers -I/home/runner/work/test2/test2/client/Headers/comm -I/home/runner/work/test2/test2/client/Sources -I/home/runner/work/test2/test2/client/Sources/comm -I/home/runner/work/test2/test2/client/Forms -I/home/runner/work/test2/test2/client/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include Headers/client_expert.h -o moc_client_expert.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/sdk/include -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Forms -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ui_cloudmeeting/Headers/client_factory.h -o moc_client_factory.cpp
 
-moc_login.cpp: Headers/login.h \
+moc_login.cpp: ui_cloudmeeting/Headers/login.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/client/Headers -I/home/runner/work/test2/test2/client/Headers/comm -I/home/runner/work/test2/test2/client/Sources -I/home/runner/work/test2/test2/client/Sources/comm -I/home/runner/work/test2/test2/client/Forms -I/home/runner/work/test2/test2/client/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include Headers/login.h -o moc_login.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/sdk/include -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Forms -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ui_cloudmeeting/Headers/login.h -o moc_login.cpp
 
-moc_regist.cpp: Headers/regist.h \
+moc_regist.cpp: ui_cloudmeeting/Headers/regist.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/client/Headers -I/home/runner/work/test2/test2/client/Headers/comm -I/home/runner/work/test2/test2/client/Sources -I/home/runner/work/test2/test2/client/Sources/comm -I/home/runner/work/test2/test2/client/Forms -I/home/runner/work/test2/test2/client/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include Headers/regist.h -o moc_regist.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/sdk/include -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Forms -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ui_cloudmeeting/Headers/regist.h -o moc_regist.cpp
 
-moc_commwidget.cpp: Headers/comm/commwidget.h \
-		Headers/comm/mainwindow.h \
-		Headers/comm/annot.h \
-		Headers/comm/clientconn.h \
-		Headers/protocol.h \
-		Headers/comm/audiochat.h \
-		Headers/comm/screenshare.h \
+moc_register_dialog.cpp: ui_cloudmeeting/Headers/register_dialog.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/client/Headers -I/home/runner/work/test2/test2/client/Headers/comm -I/home/runner/work/test2/test2/client/Sources -I/home/runner/work/test2/test2/client/Sources/comm -I/home/runner/work/test2/test2/client/Forms -I/home/runner/work/test2/test2/client/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include Headers/comm/commwidget.h -o moc_commwidget.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/sdk/include -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Forms -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ui_cloudmeeting/Headers/register_dialog.h -o moc_register_dialog.cpp
 
-moc_mainwindow.cpp: Headers/comm/mainwindow.h \
-		Headers/comm/annot.h \
-		Headers/comm/clientconn.h \
-		Headers/protocol.h \
-		Headers/comm/audiochat.h \
-		Headers/comm/screenshare.h \
+moc_annotcanvas.cpp: ui_cloudmeeting/Headers/comm/annotcanvas.h \
+		ui_cloudmeeting/Headers/comm/annot.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/client/Headers -I/home/runner/work/test2/test2/client/Headers/comm -I/home/runner/work/test2/test2/client/Sources -I/home/runner/work/test2/test2/client/Sources/comm -I/home/runner/work/test2/test2/client/Forms -I/home/runner/work/test2/test2/client/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include Headers/comm/mainwindow.h -o moc_mainwindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/sdk/include -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Forms -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ui_cloudmeeting/Headers/comm/annotcanvas.h -o moc_annotcanvas.cpp
 
-moc_annotcanvas.cpp: Headers/comm/annotcanvas.h \
-		Headers/comm/annot.h \
+moc_audiochat.cpp: ui_cloudmeeting/Headers/comm/audiochat.h \
+		ui_cloudmeeting/Headers/comm/clientconn.h \
+		ui_cloudmeeting/Headers/protocol.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/client/Headers -I/home/runner/work/test2/test2/client/Headers/comm -I/home/runner/work/test2/test2/client/Sources -I/home/runner/work/test2/test2/client/Sources/comm -I/home/runner/work/test2/test2/client/Forms -I/home/runner/work/test2/test2/client/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include Headers/comm/annotcanvas.h -o moc_annotcanvas.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/sdk/include -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Forms -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ui_cloudmeeting/Headers/comm/audiochat.h -o moc_audiochat.cpp
 
-moc_audiochat.cpp: Headers/comm/audiochat.h \
-		Headers/comm/clientconn.h \
-		Headers/protocol.h \
+moc_clientconn.cpp: ui_cloudmeeting/Headers/comm/clientconn.h \
+		ui_cloudmeeting/Headers/protocol.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/client/Headers -I/home/runner/work/test2/test2/client/Headers/comm -I/home/runner/work/test2/test2/client/Sources -I/home/runner/work/test2/test2/client/Sources/comm -I/home/runner/work/test2/test2/client/Forms -I/home/runner/work/test2/test2/client/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include Headers/comm/audiochat.h -o moc_audiochat.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/sdk/include -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Forms -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ui_cloudmeeting/Headers/comm/clientconn.h -o moc_clientconn.cpp
 
-moc_clientconn.cpp: Headers/comm/clientconn.h \
-		Headers/protocol.h \
+moc_commwidget.cpp: ui_cloudmeeting/Headers/comm/commwidget.h \
+		ui_cloudmeeting/Headers/comm/mainwindow.h \
+		ui_cloudmeeting/Headers/comm/clientconn.h \
+		ui_cloudmeeting/Headers/protocol.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/client/Headers -I/home/runner/work/test2/test2/client/Headers/comm -I/home/runner/work/test2/test2/client/Sources -I/home/runner/work/test2/test2/client/Sources/comm -I/home/runner/work/test2/test2/client/Forms -I/home/runner/work/test2/test2/client/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include Headers/comm/clientconn.h -o moc_clientconn.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/sdk/include -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Forms -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ui_cloudmeeting/Headers/comm/commwidget.h -o moc_commwidget.cpp
 
-moc_screenshare.cpp: Headers/comm/screenshare.h \
-		Headers/comm/clientconn.h \
-		Headers/protocol.h \
+moc_mainwindow.cpp: ui_cloudmeeting/Headers/comm/mainwindow.h \
+		ui_cloudmeeting/Headers/comm/clientconn.h \
+		ui_cloudmeeting/Headers/protocol.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/client/Headers -I/home/runner/work/test2/test2/client/Headers/comm -I/home/runner/work/test2/test2/client/Sources -I/home/runner/work/test2/test2/client/Sources/comm -I/home/runner/work/test2/test2/client/Forms -I/home/runner/work/test2/test2/client/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include Headers/comm/screenshare.h -o moc_screenshare.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/sdk/include -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Forms -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ui_cloudmeeting/Headers/comm/mainwindow.h -o moc_mainwindow.cpp
 
-moc_udpmedia.cpp: Headers/comm/udpmedia.h \
+moc_screenshare.cpp: ui_cloudmeeting/Headers/comm/screenshare.h \
+		ui_cloudmeeting/Headers/comm/clientconn.h \
+		ui_cloudmeeting/Headers/protocol.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/client/Headers -I/home/runner/work/test2/test2/client/Headers/comm -I/home/runner/work/test2/test2/client/Sources -I/home/runner/work/test2/test2/client/Sources/comm -I/home/runner/work/test2/test2/client/Forms -I/home/runner/work/test2/test2/client/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include Headers/comm/udpmedia.h -o moc_udpmedia.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/sdk/include -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Forms -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ui_cloudmeeting/Headers/comm/screenshare.h -o moc_screenshare.cpp
 
-moc_volume_popup.cpp: Headers/comm/volume_popup.h \
+moc_udpmedia.cpp: ui_cloudmeeting/Headers/comm/udpmedia.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/client/Headers -I/home/runner/work/test2/test2/client/Headers/comm -I/home/runner/work/test2/test2/client/Sources -I/home/runner/work/test2/test2/client/Sources/comm -I/home/runner/work/test2/test2/client/Forms -I/home/runner/work/test2/test2/client/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include Headers/comm/volume_popup.h -o moc_volume_popup.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/sdk/include -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Forms -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ui_cloudmeeting/Headers/comm/udpmedia.h -o moc_udpmedia.cpp
+
+moc_volume_popup.cpp: ui_cloudmeeting/Headers/comm/volume_popup.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/runner/work/test2/test2/client/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/runner/work/test2/test2/client -I/home/runner/work/test2/test2/sdk/include -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Headers/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Sources/comm -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Forms -I/home/runner/work/test2/test2/client/ui_cloudmeeting/Resources -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtMultimedia -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/13 -I/usr/include/x86_64-linux-gnu/c++/13 -I/usr/include/c++/13/backward -I/usr/lib/gcc/x86_64-linux-gnu/13/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ui_cloudmeeting/Headers/comm/volume_popup.h -o moc_volume_popup.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_client_factory.h ui_client_expert.h ui_login.h ui_regist.h
+compiler_uic_make_all: ui_cloudmeeting/ui_client_expert.h ui_cloudmeeting/ui_client_factory.h ui_cloudmeeting/ui_login.h ui_cloudmeeting/ui_regist.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_client_factory.h ui_client_expert.h ui_login.h ui_regist.h
-ui_client_factory.h: Forms/client_factory.ui \
+	-$(DEL_FILE) ui_cloudmeeting/ui_client_expert.h ui_cloudmeeting/ui_client_factory.h ui_cloudmeeting/ui_login.h ui_cloudmeeting/ui_regist.h
+ui_cloudmeeting/ui_client_expert.h: ui_cloudmeeting/Forms/client_expert.ui \
 		/usr/lib/qt5/bin/uic
-	/usr/lib/qt5/bin/uic Forms/client_factory.ui -o ui_client_factory.h
+	/usr/lib/qt5/bin/uic ui_cloudmeeting/Forms/client_expert.ui -o ui_cloudmeeting/ui_client_expert.h
 
-ui_client_expert.h: Forms/client_expert.ui \
+ui_cloudmeeting/ui_client_factory.h: ui_cloudmeeting/Forms/client_factory.ui \
 		/usr/lib/qt5/bin/uic
-	/usr/lib/qt5/bin/uic Forms/client_expert.ui -o ui_client_expert.h
+	/usr/lib/qt5/bin/uic ui_cloudmeeting/Forms/client_factory.ui -o ui_cloudmeeting/ui_client_factory.h
 
-ui_login.h: Forms/login.ui \
+ui_cloudmeeting/ui_login.h: ui_cloudmeeting/Forms/login.ui \
 		/usr/lib/qt5/bin/uic
-	/usr/lib/qt5/bin/uic Forms/login.ui -o ui_login.h
+	/usr/lib/qt5/bin/uic ui_cloudmeeting/Forms/login.ui -o ui_cloudmeeting/ui_login.h
 
-ui_regist.h: Forms/regist.ui \
+ui_cloudmeeting/ui_regist.h: ui_cloudmeeting/Forms/regist.ui \
 		/usr/lib/qt5/bin/uic
-	/usr/lib/qt5/bin/uic Forms/regist.ui -o ui_regist.h
+	/usr/lib/qt5/bin/uic ui_cloudmeeting/Forms/regist.ui -o ui_cloudmeeting/ui_regist.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -570,110 +583,116 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 ####### Compile
 
-client_factory.o: Sources/client_factory.cpp Headers/client_factory.h \
-		Headers/comm/commwidget.h \
-		Headers/comm/mainwindow.h \
-		Headers/comm/annot.h \
-		Headers/comm/clientconn.h \
-		Headers/protocol.h \
-		Headers/comm/audiochat.h \
-		Headers/comm/screenshare.h \
-		Headers/client_expert.h \
-		ui_client_factory.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o client_factory.o Sources/client_factory.cpp
+client_expert.o: ui_cloudmeeting/Sources/client_expert.cpp ui_cloudmeeting/Headers/client_expert.h \
+		ui_cloudmeeting/Headers/comm/commwidget.h \
+		ui_cloudmeeting/Headers/comm/mainwindow.h \
+		ui_cloudmeeting/Headers/comm/clientconn.h \
+		ui_cloudmeeting/Headers/protocol.h \
+		ui_cloudmeeting/Headers/shared_types.h \
+		ui_cloudmeeting/ui_client_expert.h \
+		ui_cloudmeeting/Headers/theme.h \
+		ui_cloudmeeting/Headers/user_session.h \
+		ui_cloudmeeting/Headers/login.h \
+		ui_cloudmeeting/Headers/net_util.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o client_expert.o ui_cloudmeeting/Sources/client_expert.cpp
 
-client_expert.o: Sources/client_expert.cpp Headers/client_expert.h \
-		Headers/comm/commwidget.h \
-		Headers/comm/mainwindow.h \
-		Headers/comm/annot.h \
-		Headers/comm/clientconn.h \
-		Headers/protocol.h \
-		Headers/comm/audiochat.h \
-		Headers/comm/screenshare.h \
-		ui_client_expert.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o client_expert.o Sources/client_expert.cpp
+client_factory.o: ui_cloudmeeting/Sources/client_factory.cpp ui_cloudmeeting/Headers/client_factory.h \
+		ui_cloudmeeting/Headers/comm/commwidget.h \
+		ui_cloudmeeting/Headers/comm/mainwindow.h \
+		ui_cloudmeeting/Headers/comm/clientconn.h \
+		ui_cloudmeeting/Headers/protocol.h \
+		ui_cloudmeeting/Headers/shared_types.h \
+		ui_cloudmeeting/ui_client_factory.h \
+		ui_cloudmeeting/Headers/theme.h \
+		ui_cloudmeeting/Headers/user_session.h \
+		ui_cloudmeeting/Headers/login.h \
+		ui_cloudmeeting/Headers/net_util.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o client_factory.o ui_cloudmeeting/Sources/client_factory.cpp
 
-login.o: Sources/login.cpp Headers/login.h \
-		ui_login.h \
-		Headers/regist.h \
-		Headers/client_factory.h \
-		Headers/comm/commwidget.h \
-		Headers/comm/mainwindow.h \
-		Headers/comm/annot.h \
-		Headers/comm/clientconn.h \
-		Headers/protocol.h \
-		Headers/comm/audiochat.h \
-		Headers/comm/screenshare.h \
-		Headers/client_expert.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o login.o Sources/login.cpp
+login.o: ui_cloudmeeting/Sources/login.cpp ui_cloudmeeting/Headers/login.h \
+		ui_cloudmeeting/ui_login.h \
+		ui_cloudmeeting/Headers/regist.h \
+		ui_cloudmeeting/Headers/client_factory.h \
+		ui_cloudmeeting/Headers/comm/commwidget.h \
+		ui_cloudmeeting/Headers/comm/mainwindow.h \
+		ui_cloudmeeting/Headers/comm/clientconn.h \
+		ui_cloudmeeting/Headers/protocol.h \
+		ui_cloudmeeting/Headers/shared_types.h \
+		ui_cloudmeeting/Headers/client_expert.h \
+		ui_cloudmeeting/Headers/user_session.h \
+		ui_cloudmeeting/Headers/theme.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o login.o ui_cloudmeeting/Sources/login.cpp
 
-regist.o: Sources/regist.cpp Headers/regist.h \
-		ui_regist.h \
-		Headers/login.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o regist.o Sources/regist.cpp
+main.o: ui_cloudmeeting/Sources/main.cpp ui_cloudmeeting/Headers/login.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ui_cloudmeeting/Sources/main.cpp
 
-protocol.o: Sources/protocol.cpp Headers/protocol.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o protocol.o Sources/protocol.cpp
+net_util.o: ui_cloudmeeting/Sources/net_util.cpp ui_cloudmeeting/Headers/net_util.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o net_util.o ui_cloudmeeting/Sources/net_util.cpp
 
-main.o: Sources/main.cpp Headers/login.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o Sources/main.cpp
+protocol.o: ui_cloudmeeting/Sources/protocol.cpp ui_cloudmeeting/Headers/protocol.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o protocol.o ui_cloudmeeting/Sources/protocol.cpp
 
-commwidget.o: Sources/comm/commwidget.cpp Headers/comm/commwidget.h \
-		Headers/comm/mainwindow.h \
-		Headers/comm/annot.h \
-		Headers/comm/clientconn.h \
-		Headers/protocol.h \
-		Headers/comm/audiochat.h \
-		Headers/comm/screenshare.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o commwidget.o Sources/comm/commwidget.cpp
+regist.o: ui_cloudmeeting/Sources/regist.cpp ui_cloudmeeting/Headers/regist.h \
+		ui_cloudmeeting/ui_regist.h \
+		ui_cloudmeeting/Headers/theme.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o regist.o ui_cloudmeeting/Sources/regist.cpp
 
-mainwindow.o: Sources/comm/mainwindow.cpp Headers/comm/mainwindow.h \
-		Headers/comm/annot.h \
-		Headers/comm/clientconn.h \
-		Headers/protocol.h \
-		Headers/comm/audiochat.h \
-		Headers/comm/screenshare.h \
-		Headers/comm/annotcanvas.h \
-		Headers/comm/udpmedia.h \
-		Headers/comm/volume_popup.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o Sources/comm/mainwindow.cpp
+register_dialog.o: ui_cloudmeeting/Sources/register_dialog.cpp ui_cloudmeeting/Headers/register_dialog.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o register_dialog.o ui_cloudmeeting/Sources/register_dialog.cpp
 
-annot.o: Sources/comm/annot.cpp Headers/comm/annot.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o annot.o Sources/comm/annot.cpp
+annot.o: ui_cloudmeeting/Sources/comm/annot.cpp ui_cloudmeeting/Headers/comm/annot.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o annot.o ui_cloudmeeting/Sources/comm/annot.cpp
 
-annotcanvas.o: Sources/comm/annotcanvas.cpp Headers/comm/annotcanvas.h \
-		Headers/comm/annot.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o annotcanvas.o Sources/comm/annotcanvas.cpp
+annotcanvas.o: ui_cloudmeeting/Sources/comm/annotcanvas.cpp ui_cloudmeeting/Headers/comm/annotcanvas.h \
+		ui_cloudmeeting/Headers/comm/annot.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o annotcanvas.o ui_cloudmeeting/Sources/comm/annotcanvas.cpp
 
-audiochat.o: Sources/comm/audiochat.cpp Headers/comm/audiochat.h \
-		Headers/comm/clientconn.h \
-		Headers/protocol.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o audiochat.o Sources/comm/audiochat.cpp
+audiochat.o: ui_cloudmeeting/Sources/comm/audiochat.cpp ui_cloudmeeting/Headers/comm/audiochat.h \
+		ui_cloudmeeting/Headers/comm/clientconn.h \
+		ui_cloudmeeting/Headers/protocol.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o audiochat.o ui_cloudmeeting/Sources/comm/audiochat.cpp
 
-clientconn.o: Sources/comm/clientconn.cpp Headers/comm/clientconn.h \
-		Headers/protocol.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o clientconn.o Sources/comm/clientconn.cpp
+clientconn.o: ui_cloudmeeting/Sources/comm/clientconn.cpp ui_cloudmeeting/Headers/comm/clientconn.h \
+		ui_cloudmeeting/Headers/protocol.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o clientconn.o ui_cloudmeeting/Sources/comm/clientconn.cpp
 
-screenshare.o: Sources/comm/screenshare.cpp Headers/comm/screenshare.h \
-		Headers/comm/clientconn.h \
-		Headers/protocol.h \
-		Headers/comm/udpmedia.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o screenshare.o Sources/comm/screenshare.cpp
+commwidget.o: ui_cloudmeeting/Sources/comm/commwidget.cpp ui_cloudmeeting/Headers/comm/commwidget.h \
+		ui_cloudmeeting/Headers/comm/mainwindow.h \
+		ui_cloudmeeting/Headers/comm/clientconn.h \
+		ui_cloudmeeting/Headers/protocol.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o commwidget.o ui_cloudmeeting/Sources/comm/commwidget.cpp
 
-udpmedia.o: Sources/comm/udpmedia.cpp Headers/comm/udpmedia.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o udpmedia.o Sources/comm/udpmedia.cpp
+mainwindow.o: ui_cloudmeeting/Sources/comm/mainwindow.cpp ui_cloudmeeting/Headers/comm/mainwindow.h \
+		ui_cloudmeeting/Headers/comm/clientconn.h \
+		ui_cloudmeeting/Headers/protocol.h \
+		ui_cloudmeeting/Headers/comm/annot.h \
+		ui_cloudmeeting/Headers/comm/annotcanvas.h \
+		ui_cloudmeeting/Headers/comm/udpmedia.h \
+		ui_cloudmeeting/Headers/comm/volume_popup.h \
+		ui_cloudmeeting/Headers/comm/audiochat.h \
+		ui_cloudmeeting/Headers/comm/screenshare.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ui_cloudmeeting/Sources/comm/mainwindow.cpp
 
-volume_popup.o: Sources/comm/volume_popup.cpp Headers/comm/volume_popup.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o volume_popup.o Sources/comm/volume_popup.cpp
+screenshare.o: ui_cloudmeeting/Sources/comm/screenshare.cpp ui_cloudmeeting/Headers/comm/screenshare.h \
+		ui_cloudmeeting/Headers/comm/clientconn.h \
+		ui_cloudmeeting/Headers/protocol.h \
+		ui_cloudmeeting/Headers/comm/udpmedia.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o screenshare.o ui_cloudmeeting/Sources/comm/screenshare.cpp
+
+udpmedia.o: ui_cloudmeeting/Sources/comm/udpmedia.cpp ui_cloudmeeting/Headers/comm/udpmedia.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o udpmedia.o ui_cloudmeeting/Sources/comm/udpmedia.cpp
+
+volume_popup.o: ui_cloudmeeting/Sources/comm/volume_popup.cpp ui_cloudmeeting/Headers/comm/volume_popup.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o volume_popup.o ui_cloudmeeting/Sources/comm/volume_popup.cpp
 
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp
 
-moc_client_factory.o: moc_client_factory.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_client_factory.o moc_client_factory.cpp
-
 moc_client_expert.o: moc_client_expert.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_client_expert.o moc_client_expert.cpp
+
+moc_client_factory.o: moc_client_factory.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_client_factory.o moc_client_factory.cpp
 
 moc_login.o: moc_login.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_login.o moc_login.cpp
@@ -681,11 +700,8 @@ moc_login.o: moc_login.cpp
 moc_regist.o: moc_regist.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_regist.o moc_regist.cpp
 
-moc_commwidget.o: moc_commwidget.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_commwidget.o moc_commwidget.cpp
-
-moc_mainwindow.o: moc_mainwindow.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
+moc_register_dialog.o: moc_register_dialog.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_register_dialog.o moc_register_dialog.cpp
 
 moc_annotcanvas.o: moc_annotcanvas.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_annotcanvas.o moc_annotcanvas.cpp
@@ -695,6 +711,12 @@ moc_audiochat.o: moc_audiochat.cpp
 
 moc_clientconn.o: moc_clientconn.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_clientconn.o moc_clientconn.cpp
+
+moc_commwidget.o: moc_commwidget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_commwidget.o moc_commwidget.cpp
+
+moc_mainwindow.o: moc_mainwindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
 
 moc_screenshare.o: moc_screenshare.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_screenshare.o moc_screenshare.cpp
