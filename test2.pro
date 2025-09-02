@@ -6,6 +6,9 @@ SUBDIRS = \
     server \
     client
 
+# Configure subdirectory paths
+sdk.file = sdk/cmsdk.pro
+
 # Dependencies
 server.depends = sdk
 client.depends = sdk
