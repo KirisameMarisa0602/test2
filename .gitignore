@@ -26,11 +26,12 @@ out/
 dist/
 debug/
 release/
+Makefile*
+*.a
 
 # C/C++
 *.o
 *.obj
-*.a
 *.so
 *.dll
 *.dylib
@@ -43,3 +44,6 @@ release/
 # OS
 .DS_Store
 Thumbs.db
+
+# SQLite databases
+*.db
